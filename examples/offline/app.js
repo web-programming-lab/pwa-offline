@@ -6,7 +6,7 @@ const server = express();
 
 server.use(bodyParser.json());
 
-const connectionString = "<<your connection string>>";
+const connectionString = "<<your connectionstring>>";
 
 server.get('/technologies', async (req, res) => {
   const client = await mongoClient.connect(connectionString);

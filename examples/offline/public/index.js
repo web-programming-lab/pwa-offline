@@ -9,8 +9,6 @@ window.addEventListener('offline', () => {
   setStatusElement(navigator.onLine);
 });
 
-
-
 setStatusElement = (status) => {
   console.log(status);
 
@@ -117,7 +115,6 @@ async function postTechnology(technology) {
 }
 
 let db = null;
-bootstrap();
 
 function openDatabase() {
   db = new Dexie('technologies');
@@ -163,3 +160,5 @@ function deleteTechnologyInSynchDb(technology) {
     console.error(err.stack);
   });
 };
+
+bootstrap();
