@@ -1,0 +1,46 @@
+const mongoClient = require("mongodb").MongoClient;
+const objectId = require("mongodb").ObjectId;
+const bodyParser = require("body-parser");
+const express = require("express");
+const server = express();
+
+server.use(bodyParser.json());
+
+const connectionString = "<<your connection string>>";
+
+server.get('/technologies', async (req, res) => {
+  const client = await mongoClient.connect(connectionString);
+  const db = client.db('techradar');
+  const collection = db.collection('technologies');
+  const result = await collection.find({}).toArray();
+  res.send(result);
+});
+
+server.get('/technologies/:id', async(req, res) => {
+    const client = await mongoClient.connect(connectionString);
+    const db = client.db('techradar');
+    const collection = db.collection('technologies');
+    const result = await collection.findOne({_id: objectId(req.params.id)});
+    
+    if (result) {
+        res.send(result);
+    } else {
+        res.status(404);
+    }
+
+    res.end();
+});
+
+server.post("/technologies", async (req, res) => {
+  const client = await mongoClient.connect(connectionString);
+  const db = client.db('techradar');
+  const collection = db.collection('technologies');
+  const result = await collection.insertOne(req.body);
+
+  res.status(201);
+  res.end();
+});
+
+server.use(express.static('public'));
+
+server.listen(4566);
