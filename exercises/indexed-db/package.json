@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "npx http-server . -o -c-0",
+    "start": "npx http-server . -o -c-0"
   },
   "author": "",
   "license": "ISC",
