@@ -14,10 +14,13 @@ setStatusElement = (status) => {
 
   const element = {
     text: status ? 'online' : 'offline',
-    emoji: status ? '🤩' : '😔'
-  }
-  document.body.insertAdjacentHTML('beforebegin', `<button class="margin-large padding-medium">${element.text} ${element.emoji}</button>`)
-}
+    emoji: status ? '🤩' : '😔',
+  };
+  document.body.insertAdjacentHTML(
+    'beforebegin',
+    `<button class="margin-large padding-medium">${element.text} ${element.emoji}</button>`
+  );
+};
 
 // Get form element
 const form = document.querySelector('form');
@@ -47,7 +50,7 @@ const renderTechnologies = async () => {
 
 /**
  * Add technology elements in the DOM
- * @param {*} technologies 
+ * @param {*} technologies
  */
 const addTechnologies = (technologies) => {
   document.querySelector('.technologies').innerHTML = '';
@@ -58,7 +61,7 @@ const addTechnologies = (technologies) => {
 
 /**
  * Add technology element in the DOM
- * @param {*} technology 
+ * @param {*} technology
  */
 const addTechnology = (technology) => {
   const techElement = document.createElement('article');
@@ -96,7 +99,6 @@ async function saveTechnology(form) {
     // API Call
     return postTechnology(result);
   } else {
-
     // Persist offline in Indexed DB
     addTechnology(result);
     return await db.technologies.add({
@@ -104,13 +106,17 @@ async function saveTechnology(form) {
       category: result.category,
       ring: result.ring,
       description: result.description,
-      synch: false
+      synch: false,
     });
   }
 }
 
 async function postTechnology(technology) {
-  const response = await fetch('/technologies', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(technology) });
+  const response = await fetch('/technologies', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(technology),
+  });
   return response;
 }
 
@@ -120,7 +126,7 @@ function openDatabase() {
   db = new Dexie('technologies');
 
   db.version(1).stores({
-    technologies: '++id, name, category, ring, description'
+    technologies: '++id, name, category, ring, description',
   });
 }
 
@@ -133,14 +139,13 @@ function bootstrap() {
   renderTechnologies();
 }
 
-
 /**
  * Synchronize offline created technologies with the backend
- * @returns 
+ * @returns
  */
 function syncTechnologies() {
   return db.transaction('rw', db.technologies, async () => {
-    await db.technologies.each(technology => {
+    await db.technologies.each((technology) => {
       postTechnology(technology);
       deleteTechnologyInSynchDb(technology);
     });
@@ -149,16 +154,18 @@ function syncTechnologies() {
 
 /**
  * Delete synchronized technology in IndexedDB
- * @param {*} technology 
+ * @param {*} technology
  */
 function deleteTechnologyInSynchDb(technology) {
   db.transaction('rw', db.technologies, async () => {
     await db.technologies.where('name').equals(technology.name).delete();
-  }).then(() => {
-    console.log('Transaction committed.');
-  }).catch(err => {
-    console.error(err.stack);
-  });
-};
+  })
+    .then(() => {
+      console.log('Transaction committed.');
+    })
+    .catch((err) => {
+      console.error(err.stack);
+    });
+}
 
 bootstrap();
