@@ -6,8 +6,7 @@ const server = express();
 
 server.use(bodyParser.json());
 
-const connectionString =
-  'mongodb+srv://testuser:rf668pBgiwPLBa4m@tech-radar-cluster.f3oa6.mongodb.net/?retryWrites=true&w=majority';
+const connectionString = '<<connection string>>';
 
 server.get('/technologies', async (req, res) => {
   const client = await mongoClient.connect(connectionString);
