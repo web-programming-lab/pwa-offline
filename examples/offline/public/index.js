@@ -1,15 +1,4 @@
-// Listen to online / offline event
-window.addEventListener('online', async () => {
-  setStatusElement(navigator.onLine);
-  await syncTechnologies();
-  await renderTechnologies();
-});
-
-window.addEventListener('offline', () => {
-  setStatusElement(navigator.onLine);
-});
-
-setStatusElement = (status) => {
+const setStatusElement = (status) => {
   console.log(status);
 
   const element = {
@@ -21,6 +10,17 @@ setStatusElement = (status) => {
     `<button class="margin-large padding-medium">${element.text} ${element.emoji}</button>`
   );
 };
+
+// Listen to online / offline event
+window.addEventListener('online', async () => {
+  setStatusElement(navigator.onLine);
+  await syncTechnologies();
+  await renderTechnologies();
+});
+
+window.addEventListener('offline', () => {
+  setStatusElement(navigator.onLine);
+});
 
 // Get form element
 const form = document.querySelector('form');
