@@ -1,14 +1,25 @@
 const setStatusElement = (status) => {
-  console.log(status);
-
-  const element = {
+  const { text, emoji } = {
     text: status ? 'online' : 'offline',
     emoji: status ? '🤩' : '😔',
   };
-  document.body.insertAdjacentHTML(
-    'beforebegin',
-    `<button class="margin-large padding-medium">${element.text} ${element.emoji}</button>`
-  );
+  const statusEl = document.querySelector('#status');
+
+  if (statusEl) {
+    statusEl.textContent = `${text} ${emoji}`;
+  } else {
+    document
+      .querySelector('.container')
+      .insertAdjacentHTML(
+        'beforebegin',
+        `<button id="status" class="margin-large padding-medium">${text} ${emoji}</button>`
+      );
+
+    setTimeout(() => {
+      console.log('remove');
+      document.querySelector('#status').remove();
+    }, 3000);
+  }
 };
 
 // Listen to online / offline event
