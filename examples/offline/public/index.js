@@ -1,32 +1,26 @@
 const setStatusElement = (status) => {
-  const { text, emoji } = {
-    text: status ? 'online' : 'offline',
-    emoji: status ? '🤩' : '😔',
-  };
   const statusEl = document.querySelector('#status');
-
-  if (statusEl) {
-    statusEl.textContent = `${text} ${emoji}`;
-  } else {
-    document
-      .querySelector('.container')
-      .insertAdjacentHTML(
-        'beforebegin',
-        `<button id="status" class="margin-large padding-medium">${text} ${emoji}</button>`
-      );
-
-    setTimeout(() => {
-      console.log('remove');
-      document.querySelector('#status').remove();
-    }, 3000);
-  }
+  statusEl.innerHTML = status
+    ? `<span style="color:green">Online</span>`
+    : `<span style="color:red">Offline</span>`;
 };
 
 // Listen to online / offline event
 window.addEventListener('online', async () => {
   setStatusElement(navigator.onLine);
+  document
+    .querySelector('.container')
+    .insertAdjacentHTML(
+      'afterbegin',
+      `<button id="sync" aria-busy="true" class="secondary">Sync…</progress>`
+    );
+
   await syncTechnologies();
-  await renderTechnologies();
+
+  setTimeout(async () => {
+    await renderTechnologies();
+    document.querySelector('#sync').remove();
+  }, 500); // Wait for the sync to finish
 });
 
 window.addEventListener('offline', () => {
