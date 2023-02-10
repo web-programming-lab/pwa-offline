@@ -8,6 +8,7 @@
   "author": "Web Programming Lab 🚀",
   "license": "ISC",
   "devDependencies": {
+    "@angular/cli": "^15.1.5",
     "eslint": "^8.31.0",
     "eslint-config-prettier": "^8.6.0",
     "prettier": "^2.8.2"
