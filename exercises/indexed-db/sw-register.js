@@ -1,1 +1,0 @@
-console.log('your registration logic here...');

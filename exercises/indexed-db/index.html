@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>IndexedDB Seed</title>
+  </head>
 
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Offline Seed</title>
-</head>
-
-<body>
-
-    <span id="status"></span>
-
+  <body>
     <form id="personForm">
-        <input type="text" placeholder="Name" name="name" width="200px">
-        <input type="text" placeholder="Firstname" name="firstname" width="200px">
-        <button type="submit">Save</button>
+      <input type="text" placeholder="Name" name="name" width="200px" />
+      <input
+        type="text"
+        placeholder="Firstname"
+        name="firstname"
+        width="200px"
+      />
+      <button type="submit">Save</button>
     </form>
 
-    <ul id="people">
-
-    </ul>
+    <ul id="people"></ul>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dexie/2.0.4/dexie.min.js"></script>
     <script src="app.js"></script>
-    <script src="sw-register.js"></script>
-
-</body>
-
+  </body>
 </html>
