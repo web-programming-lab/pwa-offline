@@ -5,13 +5,16 @@
   "main": "app.js",
   "author": "",
   "license": "ISC",
+  "scripts": {
+    "start": "nodemon ./app.js"
+  },
   "dependencies": {
-    "dexie": "^3.2.0",
-    "ejs": "^3.1.6",
-    "express": "^4.17.2",
-    "mongodb": "^4.3.1"
+    "dexie": "^3.2.4",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "mongodb": "^6.3.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^3.0.3"
   }
 }
